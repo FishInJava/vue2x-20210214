@@ -19,6 +19,7 @@
       </option>
     </select>
     <span>selectedCurrency: {{ selectedCurrency }}</span>
+    <button @click="getCurrency()">刷新币种</button>
     <!--echar柱状图展示模块-->
     <div id="main" style="width: 1600px; height: 400px"></div>
   </div>
@@ -37,6 +38,9 @@ export default {
       selectedCurrency: null,
       currencies: [],
       option: {
+        title: {
+          text: '',
+        },
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -88,21 +92,41 @@ export default {
             name: "open",
             type: "bar",
             data: [],
+            // label: {
+            //   show: true,
+            //   position: "inside",
+            //   rotate: 270,
+            // },
           },
           {
             name: "close",
             type: "bar",
             data: [],
+            // label: {
+            //   show: true,
+            //   position: "inside",
+            //   rotate: 270,
+            // },
           },
           {
             name: "low",
             type: "bar",
             data: [],
+            // label: {
+            //   show: true,
+            //   position: "inside",
+            //   rotate: 270,
+            // },
           },
           {
             name: "high",
             type: "bar",
             data: [],
+            // label: {
+            //   show: true,
+            //   position: "inside",
+            //   rotate: 270,
+            // },
           },
         ],
       },
@@ -141,6 +165,8 @@ export default {
             this.option.series[2].data.push(item.low);
             this.option.series[3].data.push(item.high);
           });
+          //
+          this.option.title.text = '当前币种:' + this.selectedCurrency;
           // 绑定
           this.chartDom.setOption(this.option);
         });
